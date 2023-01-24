@@ -1,5 +1,6 @@
 import IErrorDTO from "../../dto/error-dto";
 import ILoginRequestDTO from "../../dto/login-request-dto";
+import ILoginResponseDTO from "../../dto/login-response";
 import { ErrorCode } from "../../errors/error-list";
 import _appsettingsService from "../settings/settings-service";
 
@@ -18,16 +19,14 @@ class CustomError implements IErrorDTO {
 }
 
 class LoginService {
-    async LogIn(credentials : ILoginRequestDTO) : Promise<IErrorDTO> {
+    async LogIn(credentials : ILoginRequestDTO) : Promise<ILoginResponseDTO> {
         const URL = `${_appsettingsService.GetApiUrl()}/login`
-
-        const payload = JSON.stringify(credentials)
-
+        
         try {
             return fetch(URL, {
                     method: 'POST',
                     mode: 'cors',
-                    body: payload,
+                    body: JSON.stringify(credentials),
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
@@ -36,15 +35,15 @@ class LoginService {
             )
             .then( async response => {
                 if(!response.ok) {
-                    return new CustomError(
+                    throw new CustomError(
                         response.status,
                         response.statusText
                     )
                 }
-                return await response.json() as IErrorDTO
+                return await response.json() as ILoginResponseDTO
             })
         } catch (e) {
-            return new CustomError(
+            throw new CustomError(
                 ErrorCode.ERROR_HTTP_REQUEST_FAILED,
                 `${e}`
             )

@@ -1,23 +1,25 @@
 import { Alert, AlertColor } from "@mui/material"
 
-interface IProps {
+
+interface INotificationProps {
     text : string
+    onCloseAction? : () => void
 }
 
-const ErrorNotification = ({text} : IProps) => (
-    <Alert severity="error" onClose={() => {}}>{text}</Alert>
+const ErrorNotification = ({text, onCloseAction} : INotificationProps) => (
+    <Alert severity="error" onClose={onCloseAction ?? (()=>{})}>{text}</Alert>
 )
 
-const WarnNotification = ({text} : IProps) => (
-    <Alert severity="warning" onClose={() => {}}>{text}</Alert>
+const WarnNotification = ({text, onCloseAction} : INotificationProps) => (
+    <Alert severity="warning" onClose={onCloseAction ?? (()=>{})}>{text}</Alert>
 )
 
-const InfoNotification = ({text} : IProps) => (
-    <Alert severity="info" onClose={() => {}}>{text}</Alert>
+const InfoNotification = ({text, onCloseAction} : INotificationProps) => (
+    <Alert severity="info" onClose={onCloseAction ?? (()=>{})}>{text}</Alert>
 )
 
-const SuccessNotification = ({text} : IProps) => (
-    <Alert severity="success" onClose={() => {}}>{text}</Alert>
+const SuccessNotification = ({text, onCloseAction} : INotificationProps) => (
+    <Alert severity="success" onClose={onCloseAction ?? (()=>{})}>{text}</Alert>
 )
 
 export {ErrorNotification, WarnNotification, InfoNotification, SuccessNotification}

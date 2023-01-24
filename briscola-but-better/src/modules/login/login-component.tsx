@@ -13,26 +13,14 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ILoginRequestDTO from '../../dto/login-request-dto';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 interface IProps {
-    onSubmit : (x : ILoginRequestDTO) => void; 
+    onSubmit : (x : ILoginRequestDTO) => void
+    children? : React.ReactNode
 }
 
-export default function LoginComponent({onSubmit} : IProps) {
+export default function LoginComponent({onSubmit, children} : IProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -74,7 +62,6 @@ export default function LoginComponent({onSubmit} : IProps) {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
@@ -100,10 +87,7 @@ export default function LoginComponent({onSubmit} : IProps) {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              {children}
               <Button
                 type="submit"
                 fullWidth
@@ -112,19 +96,6 @@ export default function LoginComponent({onSubmit} : IProps) {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
