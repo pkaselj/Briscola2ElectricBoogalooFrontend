@@ -12,15 +12,38 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ILoginRequestDTO from '../../dto/login-request-dto';
+import _localeService from '../../services/locale/locale-service';
 
 const theme = createTheme();
 
 interface IProps {
     onSubmit : (x : ILoginRequestDTO) => void
+    main_image_url : string
+    avatar_image_url : string
     children? : React.ReactNode
 }
 
-export default function LoginComponent({onSubmit, children} : IProps) {
+interface IState {
+  username_text : string
+  password_text : string
+  sign_in_text : string
+}
+
+export default function LoginComponent({onSubmit, main_image_url, avatar_image_url, children} : IProps) {
+  const [state, setState] = React.useState<IState | undefined>(undefined)
+  React.useEffect(() => {
+    const Load = async () => {
+      const data : IState = {
+        username_text: await _localeService.GetLocaleString('USERNAME'),
+        password_text: await _localeService.GetLocaleString('PASSWORD'),
+        sign_in_text: await _localeService.GetLocaleString('SIGN_IN')
+      }
+
+      setState(data)
+    }
+      Load()
+  }, [])
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,7 +66,7 @@ export default function LoginComponent({onSubmit, children} : IProps) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: `url(${main_image_url})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -61,10 +84,9 @@ export default function LoginComponent({onSubmit, children} : IProps) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            </Avatar>
+            <Avatar src={avatar_image_url} />
             <Typography component="h1" variant="h5">
-              Sign in
+              BRISCOLA
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -72,7 +94,7 @@ export default function LoginComponent({onSubmit, children} : IProps) {
                 required
                 fullWidth
                 id="username"
-                label="Username"
+                label={state?.username_text ?? ''}
                 name="username"
                 autoComplete="username"
                 autoFocus
@@ -82,7 +104,7 @@ export default function LoginComponent({onSubmit, children} : IProps) {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label={state?.password_text ?? ''}
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -94,7 +116,7 @@ export default function LoginComponent({onSubmit, children} : IProps) {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                {state?.sign_in_text ?? ''}
               </Button>
             </Box>
           </Box>

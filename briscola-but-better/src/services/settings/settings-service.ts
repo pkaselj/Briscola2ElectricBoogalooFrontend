@@ -14,7 +14,7 @@ class SettingsService {
         return _appsettings.apiUrl
     }
 
-    GetLocale() : string {
+    GetLocalePath() : string {
         return _appsettings.defaultLocale
     }
 }

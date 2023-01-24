@@ -39,7 +39,11 @@ function App(): JSX.Element {
                 )
             })
         }
-      }>
+      }
+      
+      main_image_url='https://i.kym-cdn.com/entries/icons/original/000/032/031/man.jpg'
+      avatar_image_url=''
+      >
         {notification}
       </LoginComponent>
     </div>
