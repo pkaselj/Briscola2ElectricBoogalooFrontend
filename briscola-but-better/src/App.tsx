@@ -2,26 +2,28 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SettingsService from './services/settings/settings-service';
+import { ErrorNotification, InfoNotification, SuccessNotification, WarnNotification } from './modules/notification/notification-component';
+import LoginComponent from './modules/login/login-component';
+import ILoginRequestDTO from './dto/login-request-dto';
+import _loginService from './services/api/login-service';
+import _notificationService from './services/notification/notification-service';
+import _logger from './services/logger/logger-service';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p>
-            {new SettingsService().GetLocale()}
-          </p>
-        </a>
-      </header>
+    <div>
+      <LoginComponent onSubmit = {
+        async (x : ILoginRequestDTO) => {
+          await _loginService.LogIn(x)
+            .then( response => {
+              if(!response) { _logger.Info('Success') }
+              else { _logger.Error(JSON.stringify(response)) }
+            })
+            .catch(err => {
+              _logger.Error(err.message)
+            })
+        }
+      }/>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import _logger from "../logger/logger-service";
 
 const _appsettings : IAppSettingsDTO = require('../../settings/appsettings.json');
 
-export default class SettingsService {
+class SettingsService {
 
     constructor() {
         _logger.Debug(`Appsettings = ${JSON.stringify(_appsettings)}`)
@@ -18,3 +18,7 @@ export default class SettingsService {
         return _appsettings.defaultLocale
     }
 }
+
+const _appsettingsService : SettingsService = new SettingsService();
+
+export default _appsettingsService;
