@@ -1,0 +1,43 @@
+@startuml
+
+group Create Room
+    group PvP
+        alt Success
+            User -> "/CreateRoom/PvP": <b>GET</b>
+            "/CreateRoom/PvP" --> User: <b><font color="green">RoomID
+        else Error
+            "/CreateRoom/PvP" --> User: <b><font color="red">Error
+        end
+    end
+    group PvE
+        alt Success
+            User -> "/CreateRoom/PvP": <b>GET</b>
+            "/CreateRoom/PvE" --> User: <b><font color="green">RoomID
+        else Error
+            "/CreateRoom/PvE" --> User: <b><font color="red">Error
+        end
+    end
+end
+
+group Join Room
+    group Private
+        alt Success
+            User -> "/JoinRoom/Private": <b>GET</b> RoomID
+            "/JoinRoom/Private" --> User: <b><font color="green">SocketID
+        else Error
+            "/JoinRoom/Private" --> User: <b><font color="red">Error
+        end
+    end
+
+    group Public
+        alt Success
+            User -> "/JoinRoom/Public": <b>GET</b>
+            "/JoinRoom/Public" --> User: <b><font color="green">SocketID
+        else Error
+            "/JoinRoom/Public" --> User: <b><font color="red">Error
+        end
+    end 
+
+end
+
+@enduml

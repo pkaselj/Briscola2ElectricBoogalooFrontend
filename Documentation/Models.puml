@@ -1,0 +1,25 @@
+@startuml
+
+class Player {
+    ID
+    Name
+    ELO
+    PassHash
+}
+
+class Game {
+    ID
+    Player1_ID
+    Player2_ID
+    RoomID
+}
+
+class Token {
+    ID
+    UserID
+    Token
+    Created
+    Expiration
+}
+
+@enduml

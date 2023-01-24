@@ -1,0 +1,26 @@
+
+@startuml
+group Auth
+    User -> "/Login": <b>POST</b> Username, Password
+    alt Success
+        "/Login" --> User: <b><font color="green">Token
+    else Failure
+        "/Login" --> User: <b><font color="red">Error
+    end
+end
+
+group Register
+    User -> "/Register": <b>POST</b> Username, Password
+    alt Success
+        "/Register" --> User: <b><font color="green">Success
+    else Failure
+        "/Register" --> User: <b><font color="red">Error
+    end
+end
+
+group Logout
+    User -> "/Logout": <b>DELETE</b> Token
+    "/Logout" --> User: <b><font color="grey">Status
+end
+
+@enduml

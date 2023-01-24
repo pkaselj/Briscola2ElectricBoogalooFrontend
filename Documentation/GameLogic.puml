@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+actor Player
+actor Server
+rectangle Game {
+    usecase "DoDrawCard" as draw
+    usecase "OpponentDidDraw" as opponent_draw
+    usecase "DoThrowCard" as throw
+    usecase "OpponentDidThrow" as opponent_throw
+    usecase "HandComplete" as hand
+    usecase "Timeout" as timeout
+    usecase "GameComplete" as complete
+}
+
+Player --> draw
+Player --> throw
+Server --> opponent_draw
+Server --> opponent_throw
+Server --> hand
+Server --> complete
+Server --> timeout
+
+@enduml

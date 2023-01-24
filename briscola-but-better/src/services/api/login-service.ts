@@ -20,7 +20,7 @@ class CustomError implements IErrorDTO {
 
 class LoginService {
     async LogIn(credentials : ILoginRequestDTO) : Promise<ILoginResponseDTO> {
-        const URL = `${_appsettingsService.GetApiUrl()}/login`
+        const URL = `${_appsettingsService.GetApiUrl()}/api/login`
         
         try {
             return fetch(URL, {
