@@ -1,3 +1,4 @@
+import LoadFile from "../../utils/file-loader";
 import _logger from "../logger/logger-service";
 import _appsettingsService from "../settings/settings-service";
 
@@ -6,16 +7,11 @@ class LocaleService {
 
     private async LoadLocaleFile() {
         const localeFilePath = _appsettingsService.GetLocalePath()
-        this._localeStringMap = await fetch(localeFilePath, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(result => {
-            _logger.Debug(`${result}`)   
-            return result.json()
-        })
+        this._localeStringMap = await LoadFile(localeFilePath)
+            .then(result => {
+                _logger.Debug(`${result}`)   
+                return result.json()
+            })
     }
 
     async GetLocaleString(key : string) : Promise<string> {

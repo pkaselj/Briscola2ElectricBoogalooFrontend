@@ -1,0 +1,3 @@
+export enum Resource {
+    ANGRY_MAN_PLAYING_CARDS_IMG = 'ANGRY_MAN_PLAYING_CARDS_IMG'
+}
