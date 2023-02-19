@@ -26,15 +26,21 @@ function App(): JSX.Element {
         _logger.Error(`${err.errorCode} :: ${err.errorMessage}`)
         setNotification(
           <ErrorNotification
-            text={`Error code [${err.errorCode}] :: ${err.errorMessage}.`}
+            text={`Error: ${err.errorMessage}`}
             onCloseAction={clearNotification}
             />
           )
       })
     }
 
+    const onFocusTextInput = () => {
+      clearNotification();
+    }
+
   return (
-    <LoginComponent onSubmit = {onSubmitAction}
+    <LoginComponent
+    onSubmit = {onSubmitAction}
+    onFocusTextInput={onFocusTextInput}
     main_image_url='https://i.kym-cdn.com/entries/icons/original/000/032/031/man.jpg'
     avatar_image_url=''
     >

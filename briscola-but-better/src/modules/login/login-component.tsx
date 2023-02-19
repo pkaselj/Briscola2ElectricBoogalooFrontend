@@ -15,6 +15,7 @@ const theme = createTheme();
 
 interface IProps {
     onSubmit : (x : ILoginRequestDTO) => void
+    onFocusTextInput : () => void
     main_image_url : string
     avatar_image_url : string
     children? : React.ReactNode
@@ -26,7 +27,7 @@ interface IState {
   sign_in_text : string
 }
 
-export default function LoginComponent({onSubmit, main_image_url, avatar_image_url, children} : IProps) {
+export default function LoginComponent({onSubmit, onFocusTextInput, main_image_url, avatar_image_url, children} : IProps) {
   const [state, setState] = React.useState<IState | undefined>(undefined)
   React.useEffect(() => {
     const Load = async () => {
@@ -95,6 +96,7 @@ export default function LoginComponent({onSubmit, main_image_url, avatar_image_u
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onFocus={onFocusTextInput}
               />
               <TextField
                 margin="normal"
@@ -105,6 +107,7 @@ export default function LoginComponent({onSubmit, main_image_url, avatar_image_u
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onFocus={onFocusTextInput}
               />
               {children}
               <Button

@@ -14,7 +14,7 @@ const _errorDatabase : {[key in ErrorCodes] : IErrorDTO} = {
 
     [ErrorCodes.INVALID_LOGIN_CREDENTIALS]: {
         errorCode: ErrorCodes.INVALID_LOGIN_CREDENTIALS,
-        errorMessage: 'Test'
+        errorMessage: 'Invalid login credentials.'
     },
 }
 
